@@ -19,11 +19,6 @@ import java.util.List;
 public final class BundleItems {
     public static final int DUMMY_ITEM_COUNT = 12;
 
-    private static final Material BUNDLE_MATERIAL = Material.BUNDLE;
-    private static final Material DUMMY_MATERIAL = Material.BARRIER;
-    private static final NamespacedKey INVISIBLE_MODEL = NamespacedKey.minecraft("air");
-    private static final String HIDE_BUNDLE_CONTENTS_FLAG = "HIDE_BUNDLE_CONTENTS";
-
     private static ItemStack dummyItem;
 
     private BundleItems() {
@@ -38,7 +33,7 @@ public final class BundleItems {
         if (isBundle(item.getType())) {
             bundle = item;
         } else {
-            bundle = new ItemStack(BUNDLE_MATERIAL, Math.max(1, item.getAmount()));
+            bundle = new ItemStack(Material.BUNDLE, Math.max(1, item.getAmount()));
             bundle.setItemMeta(item.getItemMeta());
         }
 
@@ -62,12 +57,12 @@ public final class BundleItems {
     @SuppressWarnings("deprecation")
     public static @NotNull ItemStack getDummyItem() {
         if (dummyItem == null) {
-            ItemStack item = new ItemStack(DUMMY_MATERIAL);
+            ItemStack item = new ItemStack(Material.BARRIER);
             ItemMeta itemMeta = item.getItemMeta();
             if (itemMeta != null) {
                 itemMeta.setDisplayName(" ");
                 itemMeta.setHideTooltip(true);
-                itemMeta.setItemModel(INVISIBLE_MODEL);
+                itemMeta.setItemModel(NamespacedKey.minecraft("air"));
                 item.setItemMeta(itemMeta);
             }
             dummyItem = item;
@@ -92,7 +87,7 @@ public final class BundleItems {
         try {
             ItemMeta itemMeta = item.getItemMeta();
             if (itemMeta != null) {
-                itemMeta.addItemFlags(ItemFlag.valueOf(HIDE_BUNDLE_CONTENTS_FLAG));
+                itemMeta.addItemFlags(ItemFlag.valueOf("HIDE_BUNDLE_CONTENTS"));
                 item.setItemMeta(itemMeta);
             }
         } catch (Throwable ignored) {
