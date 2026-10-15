@@ -70,7 +70,6 @@ public final class BundleItems {
         return dummyItem.clone();
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     private static void hideBundleContents(ItemStack item) {
         if (Platform.PAPER.isPlatform()) {
             TooltipDisplay.Builder builder = TooltipDisplay.tooltipDisplay();
